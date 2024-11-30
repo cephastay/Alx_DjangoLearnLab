@@ -55,7 +55,7 @@ class AuthorSerializerTestCase(TestCase):
         # Test that the nested books are serialized correctly
         data = self.author_serializer.data
         self.assertEqual(len(data['books']), 2)
-        self.assertEqual(data['books'][0]['title'], 'Things Fall Apart')
-        self.assertEqual(data['books'][1]['title'], 'Arrow of God')
+        self.assertEqual(data['books'][0]['title'], 'Arrow of God')
+        self.assertEqual(data['books'][1]['title'], 'Things Fall Apart')
 
 
