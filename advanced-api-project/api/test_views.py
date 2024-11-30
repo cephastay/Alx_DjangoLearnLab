@@ -21,7 +21,17 @@ class LoginViewTestCase(APITestCase):
 
     def test_booklist_page_get(self):
         response = self.client.get(self.books_list_url)
+        author_data =  {
+            "author": 3,
+            "id": 10,
+            "publication_year": 2013,
+            "title": "Americanah"    
+        }
+        
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertContains(author_data, response.data)
+
+        
 
     def test_authorlist_page_get(self):
         response = self.client.get(self.authors_list_url)
