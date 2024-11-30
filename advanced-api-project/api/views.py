@@ -10,7 +10,7 @@ from rest_framework.reverse import reverse
 
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateAPIView, UpdateAPIView, RetrieveDestroyAPIView, RetrieveAPIView
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, DjangoModelPermissions, DjangoModelPermissionsOrAnonReadOnly
 
 from rest_framework.filters import SearchFilter, OrderingFilter
 
