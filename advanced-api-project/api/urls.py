@@ -17,8 +17,8 @@ urlpatterns = [
     path('books/', BookListView.as_view(), name='list of books'),
     path('books/<int:pk>/', BookDetailView.as_view(), name='book details' ),
 
-    path('books/<int:pk>/update/', BookUpdateView.as_view(), name='update book'),
-    path('books/<int:pk>/delete/', BookDeleteView.as_view(), name='delete book'),
+    path('books/update/<int:pk>', BookUpdateView.as_view(), name='update book'),
+    path('books/delete/<int:pk>', BookDeleteView.as_view(), name='delete book'),
 
     path('router/', include(router.urls)),
     path('', api_root, name='home'), 
