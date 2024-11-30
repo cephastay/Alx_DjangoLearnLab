@@ -16,6 +16,7 @@ class LoginViewTestCase(APITestCase):
         }
 
     def test_login_page_get(self):
+        self.client.login() # not correct implementation or I don't know
         response = self.client.get(self.login_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
