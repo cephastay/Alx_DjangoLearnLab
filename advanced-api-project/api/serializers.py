@@ -14,7 +14,7 @@ class BookSerializer(serializers.ModelSerializer):
         model (Book): The model that this serializer is tied to.
         fields (list[str]): A list of fields from the Book model to include in the serialized output.
     """
-
+    # author_name = serializers.CharField(source='author.name', read_only=True)
     class Meta:
         """
         Meta options for the Book serializer.
@@ -24,39 +24,38 @@ class BookSerializer(serializers.ModelSerializer):
             fields (str or list): The fields to include in the serialized output, in this case, all fields from the model.
         """
         model = Book
-        fields = '__all__'  # This includes all fields of the Book model in the serialization
+        fields = '__all__'
+        # fields = ['id', 'title','author','author_name']# This includes all fields of the Book model in the serialization
 
-def validate(self, attrs):
-    """
-    Validate the 'publication_year' field to ensure it is not in the future.
-
-    This method checks the 'publication_year' attribute from the provided data
-    (typically from the request) to ensure that the publication year is not later 
-    than the current year. If the publication year is in the future, a validation 
-    error is raised.
-
-    Args:
-        attrs (dict): A dictionary of validated attributes for the instance, 
-                      typically the fields from the serializer's data.
-
-    Returns:
-        dict: The validated attributes, which can be modified if necessary 
-              (in this case, no modification is made).
-
-    Raises:
-        serializers.ValidationError: If the 'publication_year' is greater 
-                                      than the current year, an error is raised.
-    """
-    from datetime import datetime
-    current_year = datetime.now().year
-    publication_year = attrs['publication_year']
-    if publication_year > current_year:
-        raise serializers.ValidationError("'Publication Year' cannot be in the future")
-    return attrs
-
-
-
-
+    def validate(self, attrs):
+        """
+        Validate the 'publication_year' field to ensure it is not in the future.
+    
+        This method checks the 'publication_year' attribute from the provided data
+        (typically from the request) to ensure that the publication year is not later 
+        than the current year. If the publication year is in the future, a validation 
+        error is raised.
+    
+        Args:
+            attrs (dict): A dictionary of validated attributes for the instance, 
+                          typically the fields from the serializer's data.
+    
+        Returns:
+            dict: The validated attributes, which can be modified if necessary 
+                  (in this case, no modification is made).
+    
+        Raises:
+            serializers.ValidationError: If the 'publication_year' is greater 
+                                          than the current year, an error is raised.
+        """
+        from datetime import datetime
+        current_year = datetime.now().year
+        publication_year = attrs['publication_year']
+        if publication_year > current_year:
+            raise serializers.ValidationError("'Publication Year' cannot be in the future")
+        elif publication_year < 0:
+            raise serializers.ValidationError("'Publication Year' cannot be negative")
+        return attrs
 
 class AuthorSerializer(serializers.ModelSerializer):
     """

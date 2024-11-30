@@ -21,6 +21,7 @@ class Author(models.Model):
         permissions = [
         ('can_create_author', 'Permission to create new author instances'),
         ('can_delete_author', 'Permission to delete a author instance'),]
+        ordering = ['name']
 
     def __str__(self) -> str:
         """Returns the Name of the author"""
@@ -48,20 +49,20 @@ class Book(models.Model):
         """Returns the title of the book object as a str"""
         return self.title
     
-class Meta:
-    """
-    Meta options for the Book model.
-
-    Attributes:
-        ordering (list[str]): Specifies the default ordering of books, first by title 
-            and then by publication year.
-        permissions (list[tuple[str, str]]): Defines custom permissions for managing 
-            book instances, including creating, editing, and deleting.
-    """
-    ordering = ['title', 'publication_year']
-    permissions = [
-        ('can_edit_book', 'Permission to edit the title, author, and publication year'),
-        ('can_create_book', 'Permission to create new book instances'),
-        ('can_delete_book', 'Permission to delete a book instance'),
-    ]
+    class Meta:
+        """
+        Meta options for the Book model.
+    
+        Attributes:
+            ordering (list[str]): Specifies the default ordering of books, first by title 
+                and then by publication year.
+            permissions (list[tuple[str, str]]): Defines custom permissions for managing 
+                book instances, including creating, editing, and deleting.
+        """
+        ordering = ['title', 'publication_year']
+        permissions = [
+            ('can_edit_book', 'Permission to edit the title, author, and publication year'),
+            ('can_create_book', 'Permission to create new book instances'),
+            ('can_delete_book', 'Permission to delete a book instance'),
+        ]
 
