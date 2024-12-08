@@ -17,4 +17,7 @@ __UserProfile Registration and Features:__
 __Blog Post Creation:__             
     To be updated...
 
+__Blog Post Comments:__
+    To be updated...
+
     

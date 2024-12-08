@@ -29,6 +29,20 @@ class Post(models.Model):
     class Meta:
         ordering = ['title']
 
+class Comment(models.Model):
+    """Model of Comments"""
+    post = models.ForeignKey(to=Post, on_delete=models.CASCADE,related_name='post_comments')
+    author = models.ForeignKey(to=User, on_delete=models.CASCADE, related_name='author_comments')
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(editable=True, auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.content} by {self.author.username} under {self.post.title}"
+    
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk':self.post.pk})
+    
 
 
 
