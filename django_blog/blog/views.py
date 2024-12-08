@@ -217,7 +217,7 @@ def search_view(request):
 
 def tag_view(request, tag_name):
     tag = get_object_or_404(klass=Tag, name__iexact=tag_name)
-    post_by_tag = Post.objects.filter(Q(tags_name__icontains=tag.name))
+    post_by_tag = Post.objects.filter(Q(tags__name__icontains=tag.name))
 
     context = {
         'posts':post_by_tag,
