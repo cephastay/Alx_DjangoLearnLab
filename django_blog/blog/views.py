@@ -241,5 +241,9 @@ def dummy(request):
 def commentdummy(request, pk):
     return render(request, 'comment_create.html', {'dummy':dummy})
 
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'tags.html'
+
 
 
