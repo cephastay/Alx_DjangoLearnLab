@@ -21,7 +21,10 @@ class Post(models.Model):
     def __str__(self):
         """"String Representation of a Post Object. Returns the title of the post"""
         return self.title
-    
+
+    def get_absolute_url(self):
+        """"""
+        return reverse('post-detail', kwargs={'pk':self.pk})
 
     class Meta:
         ordering = ['title']

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <title>Post Detail</title>
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>Posted on: {{ post.created_at }}</p>
+  <p>Authored by: {{ post.author }}</p>
+
+  {% if user.is_authenticated %}
+    <a href="{% url 'post-update' post.id %}">Edit</a>
+    <form action="{% url 'post-delete' post.id %}" method="post" style="display:inline;">
+      {% csrf_token %}
+      <button type="submit">Delete</button>
+    </form>
+  {% else %}
+    <a href="{% url 'posts' %}">Back to Posts</a>
+  {% endif %}
+{% endblock %}
+

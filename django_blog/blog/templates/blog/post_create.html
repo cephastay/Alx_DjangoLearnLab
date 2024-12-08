@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <title>Post Creation</title>
+  <h1>Create a New Post</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div>
+      <label for="title">Title</label>
+      {{ form.title }}
+    </div>
+    <div>
+      <label for="content">Content</label>
+      {{ form.content }}
+    </div>
+    <button type="submit">Create Post</button>
+  </form>
+  <a href="{% url 'posts' %}">Back to Posts</a>
+{% endblock %}

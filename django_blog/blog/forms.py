@@ -24,4 +24,9 @@ class ProfileManagementForm(UserChangeForm):
         fields = ['username', 'email', 'first_name', 'last_name']
         exclude = ['password']
 
+from blog.models import Post
 
+class PostCreationForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content']
