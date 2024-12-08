@@ -25,3 +25,10 @@ class Post(models.Model):
 
     class Meta:
         ordering = ['title']
+
+
+
+
+#! Redundant Imports
+
+from django.contrib.auth.models import User
