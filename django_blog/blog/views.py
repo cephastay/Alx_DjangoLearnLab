@@ -117,7 +117,10 @@ class PostDetailView(DetailView):
     
     
 
+from django.contrib.auth.decorators import login_required, user_passes_test
 
+@login_required
+@user_passes_test
 def dummy(request):
     if request.method == "POST":
         form = RegisterForm(instance=request.user)
