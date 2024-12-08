@@ -24,14 +24,47 @@ class ProfileManagementForm(UserChangeForm):
         fields = ['username', 'email', 'first_name', 'last_name']
         exclude = ['password']
 
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Tag
+from taggit.forms import TagWidget
 
 class PostCreationForm(forms.ModelForm):
+    tags = forms.CharField(
+        max_length=50,
+        required=False,
+        help_text='Add new tag',
+        widget=TagWidget())
+    
     class Meta:
         model = Post
-        fields = ['title', 'content']
+        fields = ['title', 'content', 'tags']
+
+    def save(self, commit = True):
+        instance = super().save(commit)
+        post_instance = instance.id
+        tag = self.cleaned_data['tags']
+        if tag:
+            Tag.objects.create(name=tag, posts=post_instance)
+        if commit:
+            instance.save()
+        return instance
+
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']
+
+
+class SearchForm(forms.Form):
+    to_search = forms.CharField(
+        max_length=150,
+        label='',
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                'placeholder':'Search...',
+
+            }
+        ))
+
+    

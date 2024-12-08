@@ -14,8 +14,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.shortcuts import get_object_or_404
 
-from blog.forms import RegisterForm, ProfileManagementForm, PostCreationForm, CommentCreationForm
-from blog.models import Post, UserProfile, Comment
+from blog.forms import RegisterForm, ProfileManagementForm, PostCreationForm, CommentForm, SearchForm
+from blog.models import Post, UserProfile, Comment, Tag
 
 class RegisterView(CreateView):
     """Ä view to create new user instances"""
@@ -117,12 +117,12 @@ class PostDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comment_form'] = CommentCreationForm()
+        context['comment_form'] = CommentForm()
         context['comment'] = self.get_object().post_comments.all()
         return context
     
 class CommentCreateView(CreateView):
-    form_class = CommentCreationForm
+    form_class = CommentForm
     template_name = 'post_detail.html'
     model = Comment
 
@@ -191,7 +191,40 @@ class PostDetailCommentView(View):
         view = CommentCreateView.as_view()
         return view(request, *args, **kwargs)
 
+
+
+
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Q
+
+
+def search_view(request):
+    queryset = Post.objects.all()
+    form = SearchForm()
+
+    if request.method == "GET":
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['to_search']
+            searched_items = queryset.filter(Q(title__icontains=query)|Q(content__icontains=query))
+        else:
+            form = SearchForm()
+    context = {
+        'post_list': searched_items,
+        'search_form': form,
+    }
+    return render(request, 'search.html', context=context)
+
+def tag_view(request, tag_name):
+    tag = get_object_or_404(klass=Tag, name__iexact=tag_name)
+    post_by_tag = tag.posts.all()
+
+    context = {
+        'posts':post_by_tag,
+        'tag_name':tag_name
+    }
+
+    return render(request, 'tags.html', context=context)
 
 @login_required
 @user_passes_test

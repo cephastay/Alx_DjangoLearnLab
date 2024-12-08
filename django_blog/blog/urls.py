@@ -23,4 +23,7 @@ urlpatterns = [
     path('comment/<int:pk>/update/', views.CommentUpdateView.as_view(),name='comment-update'),
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(),name='comment-delete'),
     path('post/<int:pk>/comments/new/', views.commentdummy, name='comment-dummy'),
+
+    path('tags/<tag_name>/', views.tag_view, name='post-tag'),
+    path('search/', views.search_view, name='post-search'),
 ]

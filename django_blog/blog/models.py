@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.contrib.auth import get_user_model
+from taggit.managers import TaggableManager
 
 User = get_user_model() #using the get_user_model method for decoupling
 
@@ -17,6 +18,8 @@ class Post(models.Model):
     published_date = models.DateTimeField(auto_now_add=True)
 
     author = models.ForeignKey(to=User, on_delete=models.CASCADE)
+
+    tags = TaggableManager(to='Tag', related_name='post_tag_set')
 
     def __str__(self):
         """"String Representation of a Post Object. Returns the title of the post"""
@@ -43,7 +46,16 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk':self.post.pk})
     
+class Tag(models.Model):
 
+    name = models.CharField(unique=True, max_length=50)
+    posts = models.ManyToManyField(Post, related_name='post_tags')
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('post-tag', kwargs={'tag_name':self.name})
 
 
 from django.contrib.auth.models import User
