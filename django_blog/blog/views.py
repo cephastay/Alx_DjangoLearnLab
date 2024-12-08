@@ -84,14 +84,21 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self, *args, **kwargs):
         return super().get_queryset(*args, **kwargs).filter(author=self.request.user)
 
+    def test_func(self):
+        post = self.get_object()
+        return post.author == self.request.user
+
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = 'post_delete.html'
     model = Post
     success_url = reverse_lazy('posts')
 
-    def test_func(self):
-        return self.request.user == self.get_object().author
+    def is_owner(self):
+        post = self.get_object()
+        return self.request.user == post.author
 
+    def test_func(self):
+        return self.is_owner()
     
 
 class PostListView(ListView):
