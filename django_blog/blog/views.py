@@ -63,3 +63,14 @@ class PostListView(ListView):
     template_name = 'post_list.html'
     model = Post
 
+def dummy(request):
+    if request.method == "POST":
+        form = RegisterForm(instance=request.user)
+        if form.is_valid():
+            form.save()
+    else:
+        form = RegisterForm()
+
+    return render(request, 'post_list.html', {'dummy':dummy})
+
+
