@@ -205,7 +205,7 @@ def dummy(request):
 
     return render(request, 'post_list.html', {'dummy':dummy})
 
-def commentdummy(request, post_id):
+def commentdummy(request, pk):
     return render(request, 'comment_create.html', {'dummy':dummy})
 
 
