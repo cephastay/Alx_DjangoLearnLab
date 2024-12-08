@@ -26,6 +26,7 @@ class ProfileManagementForm(UserChangeForm):
 
 from blog.models import Post, Comment, Tag
 from taggit.forms import TagWidget
+from django.forms import Textarea
 
 class PostCreationForm(forms.ModelForm):
     tags = forms.CharField(
@@ -37,6 +38,9 @@ class PostCreationForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
+        widgets = {
+            "content": Textarea(attrs={"cols": 80, "rows": 20}),
+        }
 
     def save(self, commit = True):
         instance = super().save(commit)
