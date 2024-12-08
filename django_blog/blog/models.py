@@ -29,6 +29,20 @@ class Post(models.Model):
 
 
 
-#! Redundant Imports
-
 from django.contrib.auth.models import User
+from django.urls import reverse
+
+class UserProfile(models.Model):
+    """This is an optional Extension of the User Model"""
+
+    bio = models.TextField(help_text='Tell us about yourself', null=True, blank=True)
+    profile_picture = models.ImageField(null=True, blank=True)
+
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE, related_name='profile')
+
+    def __str__(self) -> str:
+        return f"{self.user.username}"
+    
+    def get_absolute_url(self):
+        """"""
+        return reverse('profile-manager', kwargs={'pk':self.user.pk})

@@ -7,3 +7,9 @@
     as I work on it.
 
     Thanks for coming and stay tuned!
+
+##
+
+__UserProfile Registration and Features:__      
+    To be updated...
+    

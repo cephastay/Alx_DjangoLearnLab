@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <title>Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% if user.is_authenticated %}
+        <p>You are logged in as {{ user }}.</p>
+        <h2>General Profile</h2>
+        <p><strong>Profile Picture:</strong> {{ user.profile.profile_picture }}</p>
+        <h3>Your Current Information</h3>
+        <ul>
+            <li><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</li>
+            <li><strong>Email:</strong> {{ user.email }}</li>
+            <li><strong>Bio:</strong> {{ user.profile.bio }}</li>
+        </ul>
+        <p>Check out your profile manager here:</p>
+        <a href="{% url 'profile-manager' user.pk %}">Profile Manager</a>
+        <form action="{% url 'logout' %}" method="post" style="margin-top: 1rem;">
+            {% csrf_token %}
+            <button type="submit">Log Out</button>
+        </form>
+    {% else %}
+        <p>You are not logged in.</p>
+        <a href="{% url 'login' %}">Click here to log in.</a>
+    {% endif %}
+{% endblock %}
