@@ -20,4 +20,7 @@ __Blog Post Creation:__
 __Blog Post Comments:__
     To be updated...
 
+__Blog Tagging Feature:__
+    To be updated...
+
     
