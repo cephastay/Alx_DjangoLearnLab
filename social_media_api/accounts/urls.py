@@ -1,9 +1,10 @@
 from django.urls import path, include
-from accounts.views import Register, TokenRetrieval, Profile, GroupViewSet, UserListAPIView
+from accounts.views import Register, TokenRetrieval, Profile, GroupViewSet, UserListAPIView, FollowUsers
 from rest_framework import routers
 
 router = routers.DefaultRouter()
-# router.register(r'groups', GroupViewSet)
+router.register(r'groups', GroupViewSet)
+router.register(r'follow/', FollowUsers)
 
 urlpatterns = [
 
@@ -18,5 +19,9 @@ urlpatterns = [
     # path('token/<int:pk>/', TokenDetail.as_view(), name='token-detail'),
 
     path('login/', include('rest_framework.urls', namespace='rest_framework')),
-    # path('', include(router.urls)),
+    path('', include(router.urls)),
+
+    # path('follow/', FollowUsers.as_view({'get':'list'}), name='follow-user'),
+    path('follow/<int:user_id>/'),
+    path('unfollow/<int:user_id>/')
 ]

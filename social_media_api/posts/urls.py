@@ -8,5 +8,6 @@ post_router.register(r'comments', views.CommentAPIViewSet, basename='comment')
 
 
 urlpatterns = [
-    path('', include(post_router.urls))
+    path('', include(post_router.urls)),
+    path('feed/',)
 ]

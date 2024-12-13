@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import permissions, viewsets, mixins, generics
-from accounts.serializers import UserSerializer, GroupSerializer, TokenSerializer
+from accounts.serializers import UserSerializer, GroupSerializer, TokenSerializer, FollowersSerializer
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from accounts.permissions import IsUser, TokenOwner
@@ -66,3 +66,19 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all().order_by('name')
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class FollowUsers(viewsets.ModelViewSet):
+    """
+    For Updating Followers list
+    """
+    queryset = get_user_model().objects.all()
+    serializer_class = FollowersSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUser]
+
+
+
+
+class UnFollowUsers():
+    pass
+

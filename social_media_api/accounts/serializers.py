@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
 
-# User = get_user_model()
+User = get_user_model()
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     password = serializers.CharField(
           write_only=True,
@@ -38,6 +38,15 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
+
+class FollowersSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField()
+    q = get_user_model().objects.all()
+    following = serializers.HyperlinkedRelatedField(view_name='customuser-detail', many=True, queryset=q)
+    followers = serializers.HyperlinkedRelatedField(view_name='customuser-detail', many=True, queryset=q)
+    class Meta:
+        model = get_user_model()
+        fields = ['username','following', 'followers']
 
 
 

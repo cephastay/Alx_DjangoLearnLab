@@ -5,10 +5,15 @@ from rest_framework.authtoken.models import Token
 class IsUser(BasePermission):
 
     def has_permission(self, request, view):
-        return request.user.is_authenticated
+        if request.user.is_authenticated:
+            return True
+        if request.method in permissions.SAFE_METHODS:
+            return True
     
     def has_object_permission(self, request, view, obj):
         if request.user == obj:
+            return True
+        if request.method in permissions.SAFE_METHODS:
             return True
 
 class TokenOwner(BasePermission):
