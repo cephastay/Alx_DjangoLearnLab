@@ -68,7 +68,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class FollowUsers(viewsets.ModelViewSet):
+class FollowUsers(generics.GenericAPIView):
     """
     For Updating Followers list
     """
@@ -79,6 +79,6 @@ class FollowUsers(viewsets.ModelViewSet):
 
 
 
-class UnFollowUsers():
+class UnFollowUsers(generics.GenericAPIView):
     pass
 

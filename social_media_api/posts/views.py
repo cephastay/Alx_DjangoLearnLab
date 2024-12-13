@@ -37,5 +37,5 @@ class CommentAPIViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user) 
 
 
-class FeedView():
+class FeedView(viewsets.ModelViewSet):
     pass
