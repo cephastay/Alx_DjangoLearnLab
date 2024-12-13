@@ -59,9 +59,6 @@ class TokenRetrieval(generics.ListAPIView):
 #     def get_queryset(self):
 #         return Token.objects.all().filter(user_id=self.kwargs['pk'])
 
-            
-
-
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
