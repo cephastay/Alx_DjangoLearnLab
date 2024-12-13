@@ -77,8 +77,12 @@ class FollowUsers(generics.GenericAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsUser]
 
 
-
-
+#! Ignore 
+from accounts.models import CustomUser
+from rest_framework.response import Response
 class UnFollowUsers(generics.GenericAPIView):
-    pass
+    queryset = CustomUser.objects.all()
+    
+    def get(self):
+        return Response(None)
 
