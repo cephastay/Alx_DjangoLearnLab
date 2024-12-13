@@ -36,6 +36,9 @@ class CommentAPIViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user) 
 
-
+#! Ignore
+from django.contrib.auth import get_user_model
 class FeedView(viewsets.ModelViewSet):
-    pass
+    following = get_user_model().follows
+    following_users = following.all()
+    queryset = Post.objects.filter(author__in=following_users).order_by('-date_created')
