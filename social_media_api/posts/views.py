@@ -38,7 +38,8 @@ class CommentAPIViewSet(viewsets.ModelViewSet):
 
 #! Ignore
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 class FeedView(viewsets.ModelViewSet):
-    following = get_user_model().follows
+    following = get_object_or_404(get_user_model(), pk=1).follows
     following_users = following.all()
-    queryset = Post.objects.filter(author__in=following_users).order_by('-date_created')
+    queryset = Post.objects.filter(author__in=following_users).order_by('-created_at')

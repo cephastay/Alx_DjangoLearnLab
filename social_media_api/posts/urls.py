@@ -9,5 +9,7 @@ post_router.register(r'comments', views.CommentAPIViewSet, basename='comment')
 
 urlpatterns = [
     path('', include(post_router.urls)),
-    path('feed/', views.FeedView.as_view({'get':'list'}))
+    path('feed/', views.FeedView.as_view({'get':'list'})),
+    path('/posts/<int:pk>/like/', include('notifications.urls')),
+    path('/posts/<int:pk>/unlike/', include('notifications.urls'))
 ]

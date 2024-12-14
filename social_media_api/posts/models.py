@@ -30,3 +30,12 @@ class Comment(models.Model):
     
     def get_absolute_url(self):
         pass
+
+class Like(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.post.title} liked by {self.user.username}"
+    
+    
