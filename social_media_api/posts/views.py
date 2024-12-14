@@ -43,3 +43,19 @@ class FeedView(viewsets.ModelViewSet):
     following = get_object_or_404(get_user_model(), pk=1).follows
     following_users = following.all()
     queryset = Post.objects.filter(author__in=following_users).order_by('-created_at')
+
+from notifications.models import Notification
+from posts.models import Like
+from rest_framework import generics
+class LikePostsView(generics.ListCreateAPIView):
+    model = Like
+    queryset = Like.objects.all()
+
+    def likepost(self, request, pk=None):
+        if request.method == 'POST':
+            post = generics.get_object_or_404(Post, pk=pk)
+            like = Like.objects.get_or_create(user=request.user, post=post)
+            Notification.objects.create(like)
+
+        else:
+            pass
