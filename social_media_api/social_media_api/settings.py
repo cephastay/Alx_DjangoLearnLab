@@ -141,6 +141,10 @@ STATICFILES_DIR = [
     BASE_DIR / 'static'
 ]
 
+STATIC_ROOT = [
+    config('staticfiles')
+]
+
 MEDIA_ROOT = [
     BASE_DIR / 'media'
 ]
